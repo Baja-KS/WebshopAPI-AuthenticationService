@@ -18,7 +18,7 @@ steps:
     password:
       from_secret:  dockerhub_pass
     registry: index.docker.io
-    repo: bajaks/webshop-api-microservices.auth-service
+    repo: webshop-api-microservices.auth-service
     dockerfile: Dockerfile
     tags:
       - '1.0'
