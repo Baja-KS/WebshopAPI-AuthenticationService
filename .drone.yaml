@@ -1,0 +1,24 @@
+---
+
+kind: pipeline
+type: docker
+name: auth-service-build-img
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
+steps:
+- name: kaniko
+  image:  banzaicloud/drone-kaniko
+  settings:
+    username:
+      from_secret:  dockerhub_username  
+    password:
+      from_secret:  dockerhub_pass
+    repo: bajaks/webshop-api-microservices.auth-service
+    tags:
+      - '1.0'
+
