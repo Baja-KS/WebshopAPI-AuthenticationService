@@ -10,6 +10,10 @@ trigger:
     - push
 
 steps:
-- name: build
-  image:  golang:1.16
-  
+- name: build_and_publish
+  image:  plugins/docker
+  settings:
+    repo: bajaks/webshop-api-microservices.auth-service
+    username: ${USERNAME}
+    password: ${PASSWORD}
+    auto_tag: true
