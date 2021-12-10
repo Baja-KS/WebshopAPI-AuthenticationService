@@ -14,6 +14,6 @@ steps:
   image:  plugins/docker
   settings:
     repo: bajaks/webshop-api-microservices.auth-service
-    username: ${USERNAME}
-    password: ${PASSWORD}
+    username: bajaks
+    password: 1776Baja210
     auto_tag: true
