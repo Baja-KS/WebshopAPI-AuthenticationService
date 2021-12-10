@@ -21,5 +21,5 @@ steps:
     repo: bajaks/webshop-api-microservices.auth-service
     dockerfile: Dockerfile
     tags:
-      - '0.1'
+      - '1.0'
 
