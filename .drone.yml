@@ -1,7 +1,7 @@
 
 kind: pipeline
 type: docker
-name: auth-service-build-img
+name: auth-service-build-img-worksn't
 
 trigger:
   branch:
