@@ -13,10 +13,10 @@ steps:
 - name: kaniko
   image:  banzaicloud/drone-kaniko
   settings:
-    username: ${USERNAME} 
-    #from_secret:  dockerhub_username  
-    password: ${PASSWORD}
-    #from_secret:  dockerhub_pass
+    username:
+      from_secret:  dockerhub_username  
+    password:
+      from_secret:  dockerhub_pass
     repo: bajaks/webshop-api-microservices.auth-service
     dockerfile: Dockerfile
     tags:
