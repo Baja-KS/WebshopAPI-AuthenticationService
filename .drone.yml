@@ -1,0 +1,15 @@
+
+kind: pipeline
+type: docker
+name: auth-service-build-img
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
+steps:
+- name: build
+  image:  golang:1.16
+  
