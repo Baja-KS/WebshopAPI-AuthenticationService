@@ -33,3 +33,5 @@ steps:
     tags:
       - v1.0
     auto_tag:suffix:  linux-arm
+    build_args:
+      - ARCH=arm32v7/ .
