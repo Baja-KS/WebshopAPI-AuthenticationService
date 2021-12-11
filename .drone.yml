@@ -33,7 +33,7 @@ steps:
 
 kind: pipeline
 type: docker
-name: auth-service-build-arm
+name: auth-service-build-amd64
 
 trigger:
   branch:
