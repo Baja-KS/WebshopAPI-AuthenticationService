@@ -10,7 +10,7 @@ trigger:
     - push
 
 steps:
-- name: build_and_publish
+- name: build_and_publish-amd64
   image:  plugins/docker
   settings:
     repo: bajaks/webshop-api-microservices.auth-service
@@ -20,4 +20,16 @@ steps:
       from_secret:  dockerhub_pass
     tags:
       - v1.0
-      - v1.1  
+    auto_tag_suffix:  linux-amd64
+- name: build_and_publish-arm
+  image:  plugins/docker
+  settings:
+    repo: bajaks/webshop-api-microservices.auth-service
+    dockerfile: Dockerfile-arm
+    username:
+      from_secret:  dockerhub_username 
+    password:
+      from_secret:  dockerhub_pass
+    tags:
+      - v1.0
+    auto_tag:suffix:  linux-arm
