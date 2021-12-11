@@ -11,7 +11,7 @@ trigger:
 
 platform:
   os: linux
-  arch: arm32v7
+  arch: arm
 
 steps:
   #- name: build_and_publish-amd64
