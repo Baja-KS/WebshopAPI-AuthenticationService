@@ -25,8 +25,8 @@ steps:
       from_secret:  dockerhub_pass
       #tags:
       #  - v1.0.0
-    auto_tag: true
-    auto_tag:suffix:  linux-arm
+      #auto_tag:suffix:  linux-arm
+    tags: ${DRONE_BUILD_NUMBER}-arm
 
 ---
 
@@ -56,6 +56,4 @@ steps:
         from_secret:  dockerhub_pass
         #tags:
         #  - v1.0
-      auto_tag: true
-      auto_tag_suffix:  linux-amd64
-
+      tags: ${DRONE_BUILD_NUMBER}
