@@ -26,7 +26,22 @@ steps:
       #tags:
       #  - v1.0.0
       #auto_tag:suffix:  linux-arm
-    tags: ${DRONE_BUILD_NUMBER}-arm
+    tags: ${DRONE_BUILD_NUMBER}-arm32v7
+- name: git-clone
+  image:  alpine/git
+  commands:
+    - git clone ssh://git@192.168.1.108:222/Baja-KS/WebshopAPI-deployment.git
+- name: change-img-version
+  image:  mikefarah/yq:3
+  commands: TAG=${DRONE_BUILD_NUMBER}-arm32v7 yq e -i '.spec.template.spec.containers[0].image = "bajaks/webshop-api-microservices.auth-service:strenv(TAG)" ' WebshopAPI-deployment/auth-service.yaml
+- name: git-push
+  image:  alpine/git
+  commands:
+    - cd WebshopAPI-deployment
+    - git add auth-service.yaml
+    - git commit -m "Change image version to ${DRONE_BUILD_NUMBER}"
+    - git push origin master
+
 
 ---
 
@@ -56,4 +71,4 @@ steps:
         from_secret:  dockerhub_pass
         #tags:
         #  - v1.0
-      tags: ${DRONE_BUILD_NUMBER}
+      tags: ${DRONE_BUILD_NUMBER}-amd64
