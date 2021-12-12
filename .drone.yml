@@ -23,9 +23,6 @@ steps:
       from_secret:  dockerhub_username 
     password:
       from_secret:  dockerhub_pass
-      #tags:
-      #  - v1.0.0
-      #auto_tag:suffix:  linux-arm
     tags: ${DRONE_BUILD_NUMBER}-arm32v7
 - name: git-clone
   image:  alpine/git
@@ -33,7 +30,7 @@ steps:
     SSH_KEY:
       from_secret:  SSH_KEY
   commands:
-    - mkdir $HOME/.ssh && echo "$SSH_KEY" > $HOME/.ssh/id_rsa && chmod 600 $HOME/.ssh/id_rsa
+    - mkdir $HOME/.ssh && echo $SSH_KEY > $HOME/.ssh/id_rsa && chmod 600 $HOME/.ssh/id_rsa
     - git clone ssh://git@192.168.1.108:222/Baja-KS/WebshopAPI-deployment.git 
 - name: change-img-version
   image:  linuxserver/yq:arm32v7-latest
