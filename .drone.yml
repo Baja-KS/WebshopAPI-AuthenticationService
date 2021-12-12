@@ -30,7 +30,7 @@ steps:
 - name: git-clone
   image:  alpine/git
   commands:
-    - git clone ssh://git@192.168.1.108:222/Baja-KS/WebshopAPI-deployment.git
+    - git clone http://192.168.1.108:3000/Baja-KS/WebshopAPI-deployment.git
 - name: change-img-version
   image:  mikefarah/yq:3
   commands: 
