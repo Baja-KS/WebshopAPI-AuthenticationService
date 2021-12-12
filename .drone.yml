@@ -33,7 +33,7 @@ steps:
     - git clone ssh://git@192.168.1.108:222/Baja-KS/WebshopAPI-deployment.git
 - name: change-img-version
   image:  mikefarah/yq:3
-  commands: TAG=${DRONE_BUILD_NUMBER}-arm32v7 yq e -i '.spec.template.spec.containers[0].image = "bajaks/webshop-api-microservices.auth-service:strenv(TAG)" ' WebshopAPI-deployment/auth-service.yaml
+  commands: TAG="${DRONE_BUILD_NUMBER}-arm32v7" yq e -i '.spec.template.spec.containers[0].image = "bajaks/webshop-api-microservices.auth-service:strenv(TAG)" ' WebshopAPI-deployment/auth-service.yaml
 - name: git-push
   image:  alpine/git
   commands:
