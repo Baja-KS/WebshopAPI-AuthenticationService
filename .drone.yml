@@ -29,15 +29,23 @@ steps:
     tags: ${DRONE_BUILD_NUMBER}-arm32v7
 - name: git-clone
   image:  alpine/git
+  environment:
+    SSH_KEY:
+      from_secret:  SSH_KEY
   commands:
-    - git clone http://192.168.1.108:3000/Baja-KS/WebshopAPI-deployment.git
+    - mkdir $HOME/.ssh && echo "$SSH_KEY" > $HOME/.ssh/id_rsa && chmod 600 $HOME/.ssh/id_rsa
+    - git clone ssh://git@192.168.1.108:222/Baja-KS/WebshopAPI-deployment.git 
 - name: change-img-version
   image:  linuxserver/yq:arm32v7-latest
   commands: 
     - TAG=${DRONE_BUILD_NUMBER}-arm32v7 yq -i -y '.spec.template.spec.containers[0].image = "bajaks/webshop-api-microservices.auth-service:strenv(TAG)" ' WebshopAPI-deployment/auth-service.yaml
 - name: git-push
   image:  alpine/git
+  environment:
+    SSH_KEY:
+      from_secret:  SSH_KEY
   commands:
+    - mkdir $HOME/.ssh && echo "$SSH_KEY" > $HOME/.ssh/id_rsa && chmod 600 $HOME/.ssh/id_rsa
     - cd WebshopAPI-deployment
     - git add auth-service.yaml
     - git commit -m "Change image version to ${DRONE_BUILD_NUMBER}"
