@@ -32,7 +32,7 @@ steps:
   commands:
     - git clone http://192.168.1.108:3000/Baja-KS/WebshopAPI-deployment.git
 - name: change-img-version
-  image:  mikefarah/yq:3
+  image:  mikefarah/yq:arm32v7-latest
   commands: 
     - TAG=${DRONE_BUILD_NUMBER}-arm32v7 yq e -i '.spec.template.spec.containers[0].image = "bajaks/webshop-api-microservices.auth-service:strenv(TAG)" ' WebshopAPI-deployment/auth-service.yaml
 - name: git-push
