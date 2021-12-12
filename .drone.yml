@@ -49,8 +49,18 @@ steps:
   environment:
     SSH_KEY:
       from_secret:  SSH_KEY
+    SSH_HOST:
+      from_secret:  SSH_HOST
+    SSH_PORT:
+      from_secret:  SSH_PORT
+
   commands:
     - mkdir $HOME/.ssh && echo "$SSH_KEY" > $HOME/.ssh/id_rsa && chmod 600 $HOME/.ssh/id_rsa
+    - |
+      [[ -n "$${SSH_PORT}" ]] && [[ -n "$${SSH_HOST}" ]] && ssh-keyscan -p $${SSH_PORT} $${SSH_HOST} >> $HOME/.ssh/known_hosts
+    - |
+      [[ -z "$${SSH_PORT}" ]] && [[ -n "$${SSH_HOST}" ]] && ssh-keyscan $${SSH_HOST} >> $HOME/.ssh/known_hosts- echo $SSH_KEY > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+
     - cd WebshopAPI-deployment
     - git add auth-service.yaml
     - git commit -m "Change image version to ${DRONE_BUILD_NUMBER}"
