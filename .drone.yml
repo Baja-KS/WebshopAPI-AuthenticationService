@@ -39,6 +39,7 @@ steps:
     [[ -n "$${SSH_PORT}" ]] && [[ -n "$${SSH_HOST}" ]] && ssh-keyscan -p $${SSH_PORT} $${SSH_HOST} >> $HOME/.ssh/known_hosts
   - |
     [[ -z "$${SSH_PORT}" ]] && [[ -n "$${SSH_HOST}" ]] && ssh-keyscan $${SSH_HOST} >> $HOME/.ssh/known_hosts- echo $SSH_KEY > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+  - git clone ssh://git@192.168.1.108:222/Baja-KS/WebshopAPI-deployment.git
 - name: change-img-version
   image:  linuxserver/yq:arm32v7-latest
   commands: 
