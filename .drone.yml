@@ -34,7 +34,7 @@ steps:
 - name: change-img-version
   image:  linuxserver/yq:arm32v7-latest
   commands: 
-    - TAG=${DRONE_BUILD_NUMBER}-arm32v7 yq e -i '.spec.template.spec.containers[0].image = "bajaks/webshop-api-microservices.auth-service:strenv(TAG)" ' WebshopAPI-deployment/auth-service.yaml
+    - TAG=${DRONE_BUILD_NUMBER}-arm32v7 yq e -i -y '.spec.template.spec.containers[0].image = "bajaks/webshop-api-microservices.auth-service:strenv(TAG)" ' WebshopAPI-deployment/auth-service.yaml
 - name: git-push
   image:  alpine/git
   commands:
