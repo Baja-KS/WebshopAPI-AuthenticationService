@@ -42,7 +42,7 @@ steps:
 - name: change-img-version
   image:  linuxserver/yq:arm32v7-latest
   commands: 
-    - TAG=${DRONE_BUILD_NUMBER}-arm32v7 yq -i -y '.microservice.deployment.tag = "${DRONE_BUILD_NUMBER}-arm32v7" ' WebshopAPI-deployment/auth-deployment.yaml
+    - TAG=${DRONE_BUILD_NUMBER}-arm32v7 yq -i -y '.microservice.deployment.tag = "${DRONE_BUILD_NUMBER}-arm32v7" ' WebshopAPI-helm/auth/values.yaml
 - name: git-push
   image:  alpine/git
   environment:
