@@ -3,32 +3,30 @@ package middlewares
 import (
 	"context"
 	"errors"
-	"github.com/Baja-KS/Webshop-API/AuthenticationService/internal/database"
-	"github.com/Baja-KS/Webshop-API/AuthenticationService/internal/service"
+	"github.com/Baja-KS/WebshopAPI-AuthenticationService/internal/database"
+	"github.com/Baja-KS/WebshopAPI-AuthenticationService/internal/service"
 	"gorm.io/gorm"
 )
 
-
-
 type AuthenticationMiddleware struct {
-	DB *gorm.DB
+	DB   *gorm.DB
 	Next service.Service
 }
 
 func (a *AuthenticationMiddleware) Login(ctx context.Context, username string, password string) (database.UserOut, string, error) {
-	return a.Next.Login(ctx,username,password)
+	return a.Next.Login(ctx, username, password)
 }
 
 func (a *AuthenticationMiddleware) Register(ctx context.Context, user database.UserIn) (string, error) {
-	if !database.AuthenticateUser(ctx,a.DB)  {
-		return "Unauthorized",errors.New("unauthorized")
+	if !database.AuthenticateUser(ctx, a.DB) {
+		return "Unauthorized", errors.New("unauthorized")
 	}
-	return a.Next.Register(ctx,user)
+	return a.Next.Register(ctx, user)
 }
 
 func (a *AuthenticationMiddleware) GetAll(ctx context.Context) ([]database.UserOut, error) {
-	if !database.AuthenticateUser(ctx,a.DB)  {
-		return []database.UserOut{},errors.New("unauthorized")
+	if !database.AuthenticateUser(ctx, a.DB) {
+		return []database.UserOut{}, errors.New("unauthorized")
 	}
 	return a.Next.GetAll(ctx)
 }
@@ -36,4 +34,3 @@ func (a *AuthenticationMiddleware) GetAll(ctx context.Context) ([]database.UserO
 func (a *AuthenticationMiddleware) AuthUser(ctx context.Context) (database.UserOut, error) {
 	return a.Next.AuthUser(ctx)
 }
-

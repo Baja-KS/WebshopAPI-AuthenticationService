@@ -1,8 +1,9 @@
-module github.com/Baja-KS/Webshop-API/AuthenticationService
+module github.com/Baja-KS/WebshopAPI-AuthenticationService
 
 go 1.16
 
 require (
+	github.com/Baja-KS/Webshop-API/AuthenticationService v0.0.0-20211206194812-9c8f4776a03d
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-kit/kit v0.10.0
 	github.com/gorilla/mux v1.7.3

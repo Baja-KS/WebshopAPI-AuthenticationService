@@ -1,5 +1,7 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
+github.com/Baja-KS/Webshop-API/AuthenticationService v0.0.0-20211206194812-9c8f4776a03d h1:ApopwuhMsMx6I9UmtsmtWL32K4FQUDHYVzzjZk8VCzo=
+github.com/Baja-KS/Webshop-API/AuthenticationService v0.0.0-20211206194812-9c8f4776a03d/go.mod h1:K9Ufl9p+VDssbnAu1qDmOtg5qCMMhvMtRflGEiaFOWc=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible/go.mod h1:r7JcOSlj0wfOMncg0iLm8Leh48TZaKVeNIfJntJ2wa0=
 github.com/Masterminds/semver/v3 v3.1.1/go.mod h1:VPu/7SZ7ePZ3QOrcuXROw5FAcLl4a0cBrbBpGY/8hQs=

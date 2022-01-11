@@ -3,13 +3,14 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/Baja-KS/Webshop-API/AuthenticationService/internal/database"
+	"github.com/Baja-KS/WebshopAPI-AuthenticationService/internal/database"
 	stdjwt "github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"os"
 	"strconv"
 )
+
 func HashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 10)
 	return string(bytes), err
@@ -27,20 +28,19 @@ type Service interface {
 	AuthUser(ctx context.Context) (database.UserOut, error)
 }
 
-
 func (a *AuthenticationService) Login(ctx context.Context, username string, password string) (database.UserOut, string, error) {
 	var userDB database.User
-	err:=a.DB.Where("username = ?",username).First(&userDB).Error
+	err := a.DB.Where("username = ?", username).First(&userDB).Error
 	if err != nil {
 		return database.UserOut{}, "", err
 	}
 	if !CheckPasswordHash(password, userDB.Password) {
 		return database.UserOut{}, "", errors.New("Login failed")
 	}
-	at:=stdjwt.NewWithClaims(stdjwt.SigningMethodHS256,stdjwt.StandardClaims{
+	at := stdjwt.NewWithClaims(stdjwt.SigningMethodHS256, stdjwt.StandardClaims{
 		Id: strconv.Itoa(int(userDB.ID)),
 	})
-	token,err:=at.SignedString([]byte(os.Getenv("JWT_KEY")))
+	token, err := at.SignedString([]byte(os.Getenv("JWT_KEY")))
 	if err != nil {
 		return database.UserOut{}, "", err
 	}
@@ -48,28 +48,28 @@ func (a *AuthenticationService) Login(ctx context.Context, username string, pass
 }
 
 func (a *AuthenticationService) Register(ctx context.Context, user database.UserIn) (string, error) {
-	hash,e:=HashPassword(user.Password)
+	hash, e := HashPassword(user.Password)
 	if e != nil {
-		return "Error",e
+		return "Error", e
 	}
-	dbUser:=database.User{
-		Username:  user.Username,
-		Fullname:  user.Fullname,
-		Email:     user.Email,
-		Password:  hash,
-		IsAdmin:   false,
+	dbUser := database.User{
+		Username: user.Username,
+		Fullname: user.Fullname,
+		Email:    user.Email,
+		Password: hash,
+		IsAdmin:  false,
 	}
-	result:=a.DB.Create(&dbUser)
+	result := a.DB.Create(&dbUser)
 	if result.Error != nil {
-		return "Error",result.Error
+		return "Error", result.Error
 	}
-	return "Register successful",nil
+	return "Register successful", nil
 }
 
 func (a *AuthenticationService) GetAll(ctx context.Context) ([]database.UserOut, error) {
 
 	var users []database.User
-	result:=a.DB.Find(&users)
+	result := a.DB.Find(&users)
 
 	if result.Error != nil {
 		return database.UserArrayOut(users), result.Error
@@ -78,10 +78,9 @@ func (a *AuthenticationService) GetAll(ctx context.Context) ([]database.UserOut,
 }
 
 func (a *AuthenticationService) AuthUser(ctx context.Context) (database.UserOut, error) {
-	return database.GetAuthUser(ctx,a.DB)
+	return database.GetAuthUser(ctx, a.DB)
 }
 
 type AuthenticationService struct {
 	DB *gorm.DB
 }
-
