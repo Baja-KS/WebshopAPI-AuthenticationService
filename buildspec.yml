@@ -4,20 +4,21 @@ env:
   variables:
     GOOS: linux
     GO111MODULE: "on"
+    DOCKER_REGISTRY: 405674440388.dkr.ecr.eu-west-2.amazonaws.com
+    DOCKER_REPO: 405674440388.dkr.ecr.eu-west-2.amazonaws.com/webshop-api-auth-ms
 
 phases:
-  # install:
-  #   runtime-versions:
-  #     java: corretto11
   pre_build:
     commands:
-      - echo Nothing to do in the pre_build phase...
+      # - IMAGE_TAG=${CODEBUILD_BUILD_NUMBER}
+      - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
   build:
     commands:
-      - echo Build started on `date`
-      # - mvn install
+      - docker build -t ${DOCKER_REPO}:${CODEBUILD_BUILD_NUMBER} .
+      - 
   post_build:
     commands:
+      - docker push ${DOCKER_REPO}:${CODEBUILD_BUILD_NUMBER}
       - echo Build completed on `date`
 # artifacts:
 #   files:
