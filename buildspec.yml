@@ -5,7 +5,7 @@ env:
     GOOS: linux
     GO111MODULE: "on"
     DOCKER_REGISTRY: 405674440388.dkr.ecr.eu-west-2.amazonaws.com
-    DOCKER_REPO: 405674440388.dkr.ecr.eu-west-2.amazonaws.com/webshop-api-auth-ms
+    DOCKER_REPO: 405674440388.dkr.ecr.eu-west-2.amazonaws.com/webshop-api-auth-svc
 
 phases:
   pre_build:
