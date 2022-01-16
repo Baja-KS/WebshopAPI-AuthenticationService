@@ -10,7 +10,6 @@ env:
 phases:
   pre_build:
     commands:
-      # - IMAGE_TAG=${CODEBUILD_BUILD_NUMBER}
       - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
   build:
     commands:
