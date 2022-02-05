@@ -11,22 +11,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Generate build number
-      id: build_number
-      uses: einaregillson/build-number@v3
-      with:
-        token: ${{ secrets.PA_TOKEN }}
-    - name: Login to docker hub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASS }}
-    - name: Docker build with build number tag
-      run: docker build -t bajaks/authentication-microservice:${{ steps.build_number.outputs.build_number }} .
-    - name: Docker push with build number
-      run: docker push bajaks/authentication-microservice:${{ steps.build_number.outputs.build_number }}
-    - name: Docker tag latest
-      run: docker tag bajaks/autentication-microservice bajaks/authentication-microservice:latest
-    - name: Docker push with latest tag
-      run: docker push bajaks/authentication-microservice:latest
+      - uses: actions/checkout@v2
+      - name: Generate-build-number
+        id: buildnumber
+        uses: einaregillson/build-number@v3
+        with:
+          token: ${{ secrets.PA_TOKEN }}
+      - name: "Login to docker hub"
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASS }}
+      - name: "Docker build with build number tag"
+        run: docker build -t bajaks/authentication-microservice:${{ steps.buildnumber.outputs.build_number }} .
+      - name: "Docker push with build number"
+        run: docker push bajaks/authentication-microservice:${{ steps.buildnumber.outputs.build_number }}
+      - name: "Docker tag latest"
+        run: docker tag bajaks/autentication-microservice bajaks/authentication-microservice:latest
+      - name: "Docker push with latest tag"
+        run: docker push bajaks/authentication-microservice:latest
