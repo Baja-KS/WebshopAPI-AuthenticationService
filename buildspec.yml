@@ -17,7 +17,7 @@ phases:
   post_build:
     commands:
       - docker push ${DOCKER_REPO}:${CODEBUILD_BUILD_NUMBER}
-      - echo Build completed on `date`
+      - echo Build completed on `date`,eh?
 # artifacts:
 #   files:
 #     - target/messageUtil-1.0.jar
