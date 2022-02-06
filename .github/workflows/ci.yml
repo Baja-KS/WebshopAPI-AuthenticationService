@@ -22,7 +22,7 @@ jobs:
         run: docker build -t bajaks/authentication-microservice:${{ github.run_number }} .
       - name: "Docker push with build number"
         run: docker push bajaks/authentication-microservice:${{ github.run_number }}
-      - name: "Docker tag latest"
-        run: docker tag bajaks/autentication-microservice:${{ github.run_number }} bajaks/authentication-microservice:latest
+      - name: "Docker build  with  latest tag"
+        run: docker build -t bajaks/authentication-microservice:latest .
       - name: "Docker push with latest tag"
         run: docker push bajaks/authentication-microservice:latest
